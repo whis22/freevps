@@ -32,7 +32,7 @@ jobs:
 
     - name: 4
       shell: powershell
-      run: start powershell "$env:SmtpServer;$env:Username;$env:Password;$env:ToAddress;invoke-expression .\main.ps1"
+      run: start powershell "invoke-expression $env:SmtpServer;$env:Username;$env:Password;$env:ToAddress;.\main.ps1"
       env:
         SmtpServer: ${{ secrets.EMAIL_SERVER }}
         Username: ${{ secrets.EMAIL_USERNAME }}
