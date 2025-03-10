@@ -34,11 +34,10 @@ jobs:
       shell: powershell
       run: invoke-expression .\main.ps1 > $null 2>&1
       env:
-        EMAIL_SERVER: ${{ secrets.EMAIL_SERVER }}
-        EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
-        EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-        EMAIL_TO: ${{ github.event.inputs.email_to || secrets.EMAIL_TO }}
+        SmtpServer: ${{ secrets.EMAIL_SERVER }}
+        Username: ${{ secrets.EMAIL_USERNAME }}
+        Password: ${{ secrets.EMAIL_PASSWORD }}
+        ToAddress: ${{ github.event.inputs.email_to || secrets.EMAIL_TO }}
 
     - name: 5
       shell: powershell
