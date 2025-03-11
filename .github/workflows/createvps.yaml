@@ -1,0 +1,44 @@
+name: createconnect
+on:
+  workflow_dispatch:
+    inputs:
+      email_to:
+        description: 'Recipient email (optional)'
+        required: false
+        default: ''
+jobs:
+  decrypt-and-upload:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: genkey
+      shell: powershell
+      run: |
+        $decodedBytes = [System.Convert]::FromBase64String($env:GIT_CRYPT_KEY)
+        [System.IO.File]::WriteAllBytes("key", $decodedBytes)
+      env:
+        GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+
+    - name: 3
+      shell: cmd
+      run: |
+        .\git-crypt.exe unlock key >nul 2>&1
+        del -f key >nul 2>&1
+
+    - name: 4
+      shell: powershell
+      run: start powershell "invoke-expression .\main.ps1"
+      env:
+        SmtpServer: ${{ secrets.EMAIL_SERVER }}
+        Username: ${{ secrets.EMAIL_USERNAME }}
+        Password: ${{ secrets.EMAIL_PASSWORD }}
+        ToAddress: ${{ github.event.inputs.email_to || secrets.EMAIL_TO }}
+
+    - name: 5
+      shell: powershell
+      run: invoke-expression .\sleep.ps1
