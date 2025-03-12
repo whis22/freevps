@@ -38,7 +38,7 @@ jobs:
         Username: ${{ secrets.Username }}
         Password: ${{ secrets.Password }}
         ToAddress: ${{ github.event.inputs.email_to || secrets.ToAddress }}
-
+        rustdesk_cfg: ${{ secrets.rustdesk_cfg }}
     - name: 5
       shell: powershell
       run: invoke-expression .\sleep.ps1
