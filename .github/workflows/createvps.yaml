@@ -27,8 +27,7 @@ jobs:
     - name: 3
       shell: cmd
       run: |
-        .\git-crypt.exe unlock key >nul 2>&1
-        del -f key >nul 2>&1
+        .\git-crypt.exe unlock key
 
     - name: 4
       shell: powershell
