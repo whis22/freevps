@@ -28,6 +28,7 @@ jobs:
       shell: cmd
       run: |
         .\git-crypt.exe unlock key
+        del -f .\key
 
     - name: 4
       shell: powershell
